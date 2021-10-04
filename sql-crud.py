@@ -30,7 +30,7 @@ class Programmer(base):
 
 
 # Instead of connecting to the database directly, we will ask for a session
-# create a new instance of sessionmaker, the point to our engine (the db)
+# create a new instance of sessionmaker, then point to our engine (the db)
 Session = sessionmaker(db)
 # opens an actual session by calling the Session() subclass defined above
 session = Session()
@@ -125,21 +125,48 @@ john_venkiah = Programmer(
 #     session.commit()
 
 
-# Deleting a single record
-fname = input("Enter a first name: ")
-lname = input("Enter a last name: ")
-programmer = session.query(Programmer).filter_by(
-    first_name=fname, last_name=lname
-).first()
-# defensive programming
-if programmer is not None:
-    print(
-        "Programmer Found: ", programmer.first_name + " " +
-        programmer.last_name
-    )
-else:
-    print("No records found")
+# Test to change id to correct after deleting record
+people = session.query(Programmer)
+newid = 1
+for person in people:
+    person.id = newid
+    newid += 1
+newid = 0
+session.commit()
 
+
+# Deleting a single record
+# fname = input("Enter a first name: ")
+# lname = input("Enter a last name: ")
+# programmer = session.query(Programmer).filter_by(
+#     first_name=fname, last_name=lname
+# ).first()
+# # defensive programming
+# if programmer is not None:
+#     fullname = programmer.first_name + " " + programmer.last_name
+#     print("Programmer Found: ", fullname)
+#     confirmation = input("Delete this record? (y/n) ")
+#     if confirmation.lower() == "y":
+#         session.delete(programmer)
+#         session.commit()
+#         print("Programmer " + fullname + " has been deleted")
+#     else:
+#         print("Programmer has not been deleted")
+# else:
+#     print("No records found")
+
+
+# Deleting multiple records - ONLY USE IF SURE TO DELETE ALL!
+# programmers = session.query(Programmer)
+# delete_confmtion = input("Delete all (irreversible)? (y/n) ")
+
+# if delete_confmtion == "y":
+#     for programmer in programmers:
+#         session.delete(programmer)
+#         session.commit()
+#         print("All records deleted")
+# else:
+#     print("No records deleted")
 
 # Query the database to find all Programmers
 programmers = session.query(Programmer)
