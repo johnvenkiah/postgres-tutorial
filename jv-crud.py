@@ -115,9 +115,6 @@ for piano in pianos:
     )
 
 
-
-
-
 # Deleting multiple records - ONLY USE IF SURE TO DELETE ALL!
 # programmers = session.query(Programmer)
 # delete_confmtion = input("Delete all (irreversible)? (y/n) ")
