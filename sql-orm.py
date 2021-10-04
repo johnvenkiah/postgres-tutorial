@@ -46,7 +46,6 @@ class Track(base):
     UnitPrice = Column(Float)
 
 
-
 # Instead of connecting to the database directly, we will ask for a session
 # create a new instance of sessionmaker, the point to our engine (the db)
 Session = sessionmaker(db)
